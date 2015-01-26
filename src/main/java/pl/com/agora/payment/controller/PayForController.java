@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.com.agora.payment.dto.PayForResult;
+
 import com.codahale.metrics.Meter;
 import com.codahale.metrics.MetricRegistry;
 
@@ -17,9 +19,11 @@ public class PayForController {
 
 	@RequestMapping("/payfor")
 	@ResponseBody
-	public String payFor(@RequestParam String id) {
+	public PayForResult payFor(@RequestParam String id) {
 		Meter samplerequest = metrics.meter("samplerequest");
+		PayForResult payForResult = new PayForResult();
+		payForResult.setResult("ok");
 		samplerequest.mark();
-		return "ok";
+		return payForResult;		
 	}
 }
